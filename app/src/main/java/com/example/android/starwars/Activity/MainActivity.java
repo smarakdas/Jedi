@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         else if(str.equals("people"))
         {
             recyclerView.setVisibility(View.VISIBLE);
-            peopleAdapter.notifyDataSetChanged();
+           peopleAdapter.notifyDataSetChanged();
             recyclerView.setAdapter(peopleAdapter);
         }
 
@@ -237,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         pd.show();
 
         System.out.println("####coming here");
+        movieList.clear();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, new Response.Listener<JSONObject>() {
             @Override
@@ -290,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
         pd.show();
 
         System.out.println("####coming here");
+        peopleList.clear();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, new Response.Listener<JSONObject>() {
             @Override
