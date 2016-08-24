@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activity.MainActivity"
+    android:id="@+id/startPage"
+    android:background="#b3d59d">
+
+
+    <TextView
+        android:padding="4dp"
+        android:text="hello"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textview_curved_bg"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+
+        android:id="@+id/textView1" />
+
+    <TextView
+        android:padding="4dp"
+        android:text="hello"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/textview_curved_bg"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:padding="4dp"
+      android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:background="@drawable/textview_curved_bg"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:padding="4dp"
+        android:visibility="gone"
+        android:text="hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:background="@drawable/textview_curved_bg"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:padding="4dp"
+        android:visibility="gone"
+        android:text="hello5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:background="@drawable/textview_curved_bg"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PEOPLE"
+        android:id="@+id/people_button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FILMS"
+        android:id="@+id/film_button"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/people_button"
+        android:layout_toEndOf="@+id/people_button"
+        android:layout_marginLeft="55dp"
+        android:layout_marginStart="55dp" />-->
+
+
+    <RelativeLayout
+        android:id="@+id/button_relative"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_green_light"
+        android:gravity="center">
+
+        <Button
+            android:text="PEOPLE"
+            android:padding="5dp"
+            android:id="@+id/people_button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/btn_curved_bg"
+            android:textSize="12sp" />
+
+        <Button
+            android:text="FILMS"
+            android:padding="5dp"
+            android:id="@+id/film_button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/people_button"
+            android:background="@drawable/btn_curved_bg"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/textView_relative"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_green_light"
+        android:gravity="center">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movie_recyclerView"
+            android:scrollbars="vertical"
+            android:padding="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
