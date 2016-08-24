@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.android.starwars.Activity.MainActivity;
 import com.example.android.starwars.MySingleton;
 import com.example.android.starwars.R;
 
@@ -49,6 +50,7 @@ public class PeopleOutput extends Fragment {
         actorNameTextview = (TextView)view.findViewById(R.id.peopleResult_Name);
         actorHeightTextview= (TextView)view.findViewById(R.id.peopleResult_height);
         urlTextView= (TextView)view.findViewById(R.id.peopleResult_url);
+        MainActivity.testValue=1;
         return view;
 
     }

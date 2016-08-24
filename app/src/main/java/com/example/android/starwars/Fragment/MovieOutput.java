@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.android.starwars.Activity.MainActivity;
 import com.example.android.starwars.MySingleton;
 import com.example.android.starwars.R;
 
@@ -48,9 +49,11 @@ public class MovieOutput extends Fragment {
         movieTitle= (TextView)view.findViewById(R.id.movieResult_Title);
         director= (TextView)view.findViewById(R.id.movieResult_director);
         urlTextView= (TextView)view.findViewById(R.id.movieResult_url);
+        MainActivity.testValue=1;
         return view;
 
     }
+
     public void downloadMovieData(final String url) {
 
 

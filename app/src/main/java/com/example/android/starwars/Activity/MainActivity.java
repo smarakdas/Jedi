@@ -5,22 +5,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.android.starwars.Adapter.ChatAdapter;
+import com.example.android.starwars.Adapter.MovieAdapter;
+import com.example.android.starwars.Adapter.PeopleAdapter;
+import com.example.android.starwars.ModelClass.MessageModel;
 import com.example.android.starwars.ModelClass.MovieModel;
 import com.example.android.starwars.ModelClass.PeopleModel;
-import com.example.android.starwars.Adapter.MovieAdapter;
 import com.example.android.starwars.MySingleton;
-import com.example.android.starwars.Adapter.PeopleAdapter;
 import com.example.android.starwars.R;
 
 import org.json.JSONArray;
@@ -31,9 +33,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static int testValue=0;
+    int count;
     private Handler handler = new Handler();
-    private TextView view1,view2,view3, view4,view5;
+
     RelativeLayout optionLayout, outputLayout;
     Button people,movie;
     String str =null;
@@ -41,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<MovieModel> movieList = new ArrayList<>();
     ArrayList<PeopleModel> peopleList= new ArrayList<>();
     FragmentTransaction ft;
+
+    ArrayList<MessageModel> chatlist = null;
+    ChatAdapter adapter = null;
+    RecyclerView chat_list = null;
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager movieLayoutManager;
@@ -56,21 +63,28 @@ public class MainActivity extends AppCompatActivity {
         pd.setCancelable(false);
 
 
-        //Initialize view
-        view1=(TextView)findViewById(R.id.textView1);
-        view2=(TextView)findViewById(R.id.textView2);
-        view3=(TextView)findViewById(R.id.textView3);
-        view4 =(TextView)findViewById(R.id.textView4);
-        view5 =(TextView)findViewById(R.id.textView5);
         people=(Button)findViewById(R.id.people_button);
         movie=(Button)findViewById(R.id.film_button);
         optionLayout =(RelativeLayout)findViewById(R.id.button_relative);
         outputLayout =(RelativeLayout)findViewById(R.id.textView_relative);
 
-        handler.postDelayed(new ViewUpdater("Hi", view1), 1000);
-        handler.postDelayed(new ViewUpdater("Welcome to star wars bot", view2), 3000);
-        handler.postDelayed(new ViewUpdater("What would you like to know about", view3), 5000);
-        handler.postDelayed(new ButtonUpdater(movie,people), 5000);
+
+
+        chat_list = (RecyclerView) findViewById(R.id.chat_list);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(2000);
+        chat_list.setItemAnimator(animator);
+
+        chat_list.setLayoutManager(layoutManager);
+        chatlist = new ArrayList<>();
+        adapter = new ChatAdapter(this, chatlist);
+        chat_list.setAdapter(adapter);
+        chat_list.scrollToPosition(count);
+
+
 
         recyclerView = (RecyclerView) findViewById(R.id.movie_recyclerView);
         movieLayoutManager =  new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -80,21 +94,70 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(movieLayoutManager);
 
-
+        addWelcome();
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if(MainActivity.testValue==1)
+        {
+            handler.postDelayed(new ViewUpdater("What else would you like to know about?", false),100);
+            recyclerView.setVisibility(View.GONE);
+            handler.postDelayed(new ButtonUpdater(), 1000);
+            MainActivity.testValue=0;
+
+        }
+        super.onBackPressed();
+    }
+
+
+
+    private void addWelcome() {
+
+        //hi msg
+        handler.postDelayed(new ViewUpdater("Hi", false), 1000);
+
+
+
+        //welcome to star wars bot
+        handler.postDelayed(new ViewUpdater("welcome to star wars bot", false), 3000);
+
+
+        //What would you like to know about?
+        handler.postDelayed(new ViewUpdater("What would you like to know about?", false),5000);
+
+        //buton into focus
+        handler.postDelayed(new ButtonUpdater(), 6000);
+
+
+    }
+    private void addMsg(String msg, boolean isSender)
+    {
+         count = adapter.getItemCount();
+        MessageModel model = new MessageModel();
+        model.setMessage(msg);
+        model.setSender(isSender);
+        chatlist.add(model);
+        adapter.notifyItemInserted(count);
+        chat_list.scrollToPosition(count);
+    }
+
+
 
     public void setAdapter(MovieAdapter adapter, PeopleAdapter peopleAdapter)
     {
         if(str.equals("movie"))
         {
+            recyclerView.setVisibility(View.VISIBLE);
             movieAdapter.notifyDataSetChanged();
             recyclerView.setAdapter(movieAdapter);
 
         }
         else if(str.equals("people"))
         {
+            recyclerView.setVisibility(View.VISIBLE);
             peopleAdapter.notifyDataSetChanged();
             recyclerView.setAdapter(peopleAdapter);
         }
@@ -103,43 +166,39 @@ public class MainActivity extends AppCompatActivity {
 
     private class ViewUpdater implements Runnable{
         private String mString;
-        private TextView mView;
+        private boolean isSender;
 
-        public ViewUpdater(String string, TextView view){
+        public ViewUpdater(String string,boolean isSender){
             mString = string;
-            mView = view;
+            this.isSender=isSender;
+
         }
 
         @Override
         public void run() {
-            mView.setVisibility(View.VISIBLE);
-            mView.setText(mString);
+            addMsg(mString,isSender);
         }
     }
 
     private class ButtonUpdater implements Runnable{
-        private Button people,movie;
 
-        public ButtonUpdater(Button movie, Button people){
-            this.movie = movie;
-            this.people = people;
+
+        public ButtonUpdater(){
+
         }
 
         @Override
         public void run() {
-              //movie.setVisibility(View.VISIBLE);
-           // people.setVisibility(View.VISIBLE);
+            System.out.println("####optionalayout coming here");
             optionLayout.setVisibility(View.VISIBLE);
             movie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    view4.setVisibility(View.VISIBLE);
-                view4.setText("movie");
-                    str ="movie";
-                    view5.setVisibility(View.VISIBLE);
-                    view5.setText("Which movie you would like to know about?");
-                    getData(str);
 
+                    addMsg("movie",true);
+                    str ="movie";
+                    getData(str);
+                    handler.postDelayed(new ViewUpdater("Which movie you would like to know about?", false),2000);
 
                 }
             });
@@ -147,19 +206,16 @@ public class MainActivity extends AppCompatActivity {
             people.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   view4.setVisibility(View.VISIBLE);
-                    view4.setText("people");
+                    addMsg("people",true);
                     str ="people";
-                    view5.setVisibility(View.VISIBLE);
-                    view5.setText("Which people you would like to know about?");
                     getData(str);
+                    handler.postDelayed(new ViewUpdater("Which people you would like to know about?", false),2000);
 
                 }
             });
 
         }
     }
-
      void getData(String data)
     {
         optionLayout.setVisibility(View.GONE);

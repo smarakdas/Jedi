@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="bg_edittext">#5D6D7E</color>
+    <color name="edittext_background">#F5F5F5</color>
+    <color name="chat_screen_color">#34495E</color>
+    <color name="bg_color_sent_msg">#FBFCFC</color>
 </resources>
