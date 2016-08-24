@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         pd = new ProgressDialog(this);
         pd.setCancelable(false);
+        pd.setTitle("Loading");
+
 
 
         people=(Button)findViewById(R.id.people_button);

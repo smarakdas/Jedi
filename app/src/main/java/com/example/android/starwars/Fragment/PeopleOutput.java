@@ -44,6 +44,8 @@ public class PeopleOutput extends Fragment {
         view= inflater.inflate(R.layout.fragment_people_output, container, false);
         pd = new ProgressDialog(getActivity());
         pd.setCancelable(false);
+        pd.setTitle("Loading people details");
+
         Bundle bundle=this.getArguments();
         peopleName = bundle.getString("people");
         downloadMovieData("http://swapi.co/api/people/");

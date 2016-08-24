@@ -43,6 +43,7 @@ public class MovieOutput extends Fragment {
         view= inflater.inflate(R.layout.fragment_movie_output, container, false);
         pd = new ProgressDialog(getActivity());
         pd.setCancelable(false);
+        pd.setTitle("Loading movie details");
         Bundle bundle=this.getArguments();
        movieName= bundle.getString("movie");
         downloadMovieData("http://swapi.co/api/films/");
